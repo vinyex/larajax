@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\RegisterController;
 
 class RedirectIfAuthenticated
 {
@@ -17,8 +18,17 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect('/dashboard');
+        switch ($guard) {
+            case 'admin' :
+                if (Auth::guard($guard)->check()) {
+                    return redirect()->route('admin-home');
+                }
+                break;
+            default:
+                if (Auth::guard($guard)->check()) {
+                    return redirect()->route('dashboard');
+                }
+                break;
         }
 
         return $next($request);

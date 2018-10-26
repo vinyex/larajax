@@ -88,7 +88,7 @@ class EmployeeManagementController extends Controller
                   'date_hired',
                   'division_id'
         ];
-        
+
         $input = $this->createQueryInput($keys, $request);
         $input['picture'] = $path;
 
@@ -195,19 +195,19 @@ class EmployeeManagementController extends Controller
      * @param  \Illuminate\Http\Request  $request
      *  @return \Illuminate\Http\Response
      */
-    public function search(Request $request) 
+    public function search(Request $request)
     {
         $constraints = [
             'nama_lengkap' => $request['nama_lengkap'],
             'division.name' => $request['division_name']
         ];
-        
+
         $employees = $this->doSearchingQuery($constraints);
         $constraints['division_name'] = $request['division_name'];
         return view('employees-mgmt/index', ['employees' => $employees, 'searchingVals' => $constraints]);
     }
 
-    private function doSearchingQuery($constraints) 
+    private function doSearchingQuery($constraints)
     {
         $query = DB::table('employees')
         ->leftJoin('city', 'employees.city_id', '=', 'city.id')
@@ -234,7 +234,7 @@ class EmployeeManagementController extends Controller
      * @param  string  $name
      * @return \Illuminate\Http\Response
      */
-    public function load($name) 
+    public function load($name)
     {
         $path = storage_path().'/app/avatars/'.$name;
         if (file_exists($path)) {
@@ -242,7 +242,7 @@ class EmployeeManagementController extends Controller
         }
     }
 
-    private function validateInput($request) 
+    private function validateInput($request)
     {
         $this->validate($request, [
             'nik' => 'required|max:15',
@@ -268,7 +268,7 @@ class EmployeeManagementController extends Controller
         ]);
     }
 
-    private function createQueryInput($keys, $request) 
+    private function createQueryInput($keys, $request)
     {
         $queryInput = [];
         for($i = 0; $i < sizeof($keys); $i++) {

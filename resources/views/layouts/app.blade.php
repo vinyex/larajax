@@ -8,7 +8,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'VirtualManage') }}</title>
+    <title>{{ config('app.name', 'VirtualManage') }}</title>  
+    <link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqQWZaC4guIbS5Dd1gCZBL1LDPRCwEpoM-5x1r0RbfIFc5s5iVEg">
+
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -51,6 +53,7 @@
 
                         @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Login</a></li>
+                            <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -83,6 +86,6 @@
     <!-- Scripts -->
 
     <script src="{{ asset('js/app.js') }}"></script>
-    
+
 </body>
 </html>
